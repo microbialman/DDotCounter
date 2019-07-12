@@ -12,34 +12,38 @@ All results can be exported as csvs containing the counts and jpeg images highli
 
 ## Installation
 
-To install, simply download the zip file for your operating system, extract, and run the executable (may also require Java installation).
-
-## Using DDot: Super-fast overview
-
+To install, simply download the zip file for your operating system from the executables folder, extract, and run the executable (may also require Java installation).
+Mac version will be coming soon. The cloned the source code can also be run using Processing.
 
 ## Using DDot
 
+<p align="center">
+<img src="ddotCounter/data/demo.gif" alt="demo gif"/>
+</p>
+
+### Instructions
+
 DDot counter is broken down into three main stages:
 
-### 1. Image processing
+#### 1. Image processing
 
 If desired, images can be modified to improve clarity of the dots using any combination of an RGB filter to amplify specific colours, a greyscale filter to remove colour, a dilation mode that boosts dot size, and a cropping tool to remove areas outside the region of interest.
 
-### 2. Dot identification
+#### 2. Dot identification
 
 Dots are found by first converting the image to black and white pixels via a process termed thresholding. The thresholding parameter should be set to find a balance where dots are best differentiated from one another.
 
-The thresholded image is then converted into a distance map using a mapping resolution value. This allows splitting of dots (or bacteria) that may be overlapping. Again, adjusting the resolution can be used to find a balance between correctly splitting joined colonies and artifically splitting single dots.
+The thresholded image is then converted into a distance map using a mapping resolution value. This allows splitting of dots (or bacteria) that may be overlapping. Again, adjusting the resolution can be used to find a balance between correctly splitting joined colonies and artificially splitting single dots.
 
-### 3. Dot counting
+#### 3. Dot counting
 
-Once parameters have been set, the counting algroithm can be run to get the total number of dots in the image. Individual sections (such a streaks for different experimental conditions) can also be set and sub-counts will be calculated for each. 
+Once parameters have been set, the counting algorithm can be run to get the total number of dots in the image. Individual sections (such a streaks for different experimental conditions) can also be set and sub-counts will be calculated for each. 
 
-Count data can be saved to files using the export button. Choose a directory and type a filename (without extension). DDot will then export a csv contining the counts (total and per section) and a jpeg of the processed image. The csv will also store all image processing settings for future reference.
+Count data can be saved to files using the export button. Choose a directory and type a filename (without extension). DDot will then export a CSV containing the counts (total and per section) and a JPEG of the processed image. The csv will also store all image processing settings for future reference.
 
-### Repeat image processing
+#### Repeat image processing
 
-If you have multiple images (such as multiple plates from an experiment) it might be desirable to process them with the same settings. This can be done using the settings from exported csvs as a reference. However, if you close the image window and open the next file (without exiting DDot) all settings will be preserved, allowing quick and uniform processing of multiple images.
+If you have multiple images (such as multiple plates from an experiment) it might be desirable to process them with the same settings. This can be done using the settings from exported CSVs as a reference. However, if you close the image window and open the next file (without exiting DDot) all settings will be preserved, allowing quick and uniform processing of multiple images.
 
 ## Technical details
 

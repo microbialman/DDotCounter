@@ -3,7 +3,7 @@ import g4p_controls.*;
 
 //Window size
 int winwidth=800;
-int winheight=600;
+int winheight=550;
 
 //GUI sections
 int rgbstart = 10;
@@ -294,6 +294,7 @@ void fileSelected(File selection) {
     rgbCheck = new GCheckbox(window,rgbstart,guistart,150,20,"RGB Filter");
     rgbCheck.addEventHandler(this, "rgbCheck_clicked");
     rgbCheck.setSelected(false);
+    if(rgbon==true){rgbCheck.setSelected(true);}
     redText = new GLabel(window, rgbstart, guistart+25,80,20);
     redText.setText("Red:");
     redSlide = new GSlider(window, rgbstart+50, guistart+25, 75,20,10.0);
@@ -323,11 +324,13 @@ void fileSelected(File selection) {
     greyCheck=new GCheckbox(window,rgbstart,guistart+80,80,20,"Greyscale");
     greyCheck.addEventHandler(this, "greyCheck_clicked");
     greyCheck.setSelected(false);
+    if(greyscale==true){greyCheck.setSelected(true);}
     
     //dilate controls
     dilCheck=new GCheckbox(window,rgbstart+90,guistart+80,80,20,"Dilate");
     dilCheck.addEventHandler(this, "dilCheck_clicked");
     dilCheck.setSelected(false);
+    if(dilate==true){dilCheck.setSelected(true);}
     
     //cropping controls
     cropping=new GLabel(window,cropstart,guistart-25,200,20);

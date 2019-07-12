@@ -26,6 +26,7 @@ void setup() {
   g4p_controls.G4P.setGlobalColorScheme(8);
   btnOpenFile = new GButton(this, bwid, bhei, 140, 20, "Select File");
   btnQuit = new GButton(this, 180+bwid, bhei, 140, 20, "Quit");
+  GLabel verNum = new GLabel(this, 320+bwid, bhei-30, 140, 20, "v1.0.0");
 }
 
 //draw the splash page
