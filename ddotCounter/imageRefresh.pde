@@ -1,4 +1,5 @@
 //function controlling what is displayed as the work image 
+//order of events is important here e.g. watershed must be calculated on the thresholded image
 public void imageRefresh(){
   workImg=loadImage(startImg);
   if(workImg.width>winwidth){

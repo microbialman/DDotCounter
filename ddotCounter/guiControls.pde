@@ -7,14 +7,14 @@ int winheight=600;
 
 //GUI sections
 int rgbstart = 10;
-int cropstart = 200;
-int threshstart = 370;
-int mapstart = 510;
-int watstart = 630;
+int cropstart = 210;
+int threshstart = 400;
+int mapstart = 550;
+int watstart = 690;
 
 //pop up window for the analysis
 GWindow window;
-int guihei;
+int guihei = 180;
 
 //splash buttons
 GButton btnOpenFile;
@@ -63,7 +63,7 @@ GCheckbox threshCheck;
 GSlider threshSlide;
 GLabel threshText;
 GLabel valLabel;
-int threshval = 80;
+int threshval = 50;
 Boolean threshon = false;
 
 //map controls
@@ -78,13 +78,18 @@ GLabel resText;
 //asterisk label
 GLabel asterisk;
 
-//watershed controls
+//watershed (counting) controls
 GButton watCount;
 GCheckbox watCheck;
 boolean waton = true;
 boolean shedready = false;
 GLabel countTitle;
 GLabel countVal;
+GButton addSection;
+GButton clearSections;
+boolean sectionactive=false;
+GButton exportDat;
+
 
 //controls for buttons
 void handleButtonEvents(GButton button, GEvent event) {
@@ -96,15 +101,17 @@ void handleButtonEvents(GButton button, GEvent event) {
   if (button == btnQuit && event == GEvent.CLICKED) {
     exit();
   }
-  //buttons to control image cropping 
+  //circular crop
   if (button == btnCircleCrop && event == GEvent.CLICKED){
     cropShape=true;
     cropToggle();
   }
+  //square crop
   if (button == btnSquareCrop && event == GEvent.CLICKED){
     cropShape=false;
     cropToggle();
   }
+  //confirm a cropped area
    if (button == btnCropConfirm && event == GEvent.CLICKED){
     if(cropactive=true){
     cropToggle();
@@ -114,16 +121,21 @@ void handleButtonEvents(GButton button, GEvent event) {
     }
     }
   }
+  //cancel cropping
   if (button == btnCropCancel && event == GEvent.CLICKED){
     if(cropactive==true){
     cropToggle();
+    crop1x=0;
+    crop1y=0;
+    crop2x=0;
+    crop2y=0;
     }
     cropset=false;
     cropactive=false;
     imageRefresh();
   }
+  //initiate calculation of watershed (dot counting)
   if (button == watCount && event == GEvent.CLICKED){
-    //initiate calculation of watershed (dot counting)
     watCount.setEnabled(false);
     watershedRun();
     countVal.setText(str(objCount));
@@ -131,19 +143,17 @@ void handleButtonEvents(GButton button, GEvent event) {
     watCount.setEnabled(true);
     watCount.setText("Re-count");
   }
-}
-
-//function to turn cropping on/off
-public void cropToggle(){
-  if(cropactive==true){
-    cropactive=false;
-    btnSquareCrop.setEnabled(true);
-    btnCircleCrop.setEnabled(true);
+  //section creation button
+  if (button == addSection && event == GEvent.CLICKED){
+    sectionactive=true;
   }
-  else{
-    cropactive=true;
-    btnSquareCrop.setEnabled(false);
-    btnCircleCrop.setEnabled(false);
+  //section clearing button
+  if(button == clearSections && event == GEvent.CLICKED){
+    clearSecs(true);
+  }
+    //export button
+  if (button == exportDat && event == GEvent.CLICKED) {
+    selectOutput("Select output destination:", "writeOutput");
   }
 }
 
@@ -254,7 +264,7 @@ public void watCheck_clicked(GCheckbox source, GEvent event) {
 }
 
 
-//function to initiate an analysis window on selecting a file
+//function to initiate an analysis window after selecting a file
 //specifies location of all GUI elements
 void fileSelected(File selection) {
   if (selection == null) {
@@ -264,11 +274,12 @@ void fileSelected(File selection) {
     imageRefresh();
     
     //generate working window
-    window=GWindow.getWindow(this, startImg, 100, 50, winwidth, winheight+guihei, JAVA2D);
+    window=GWindow.getWindow(this, "DDot: "+startImg, 100, 50, winwidth, winheight+guihei, JAVA2D);
     window.addDrawHandler(this, "windowDraw");
     window.addMouseHandler(this, "windowMouse");
     window.addOnCloseHandler(this, "windowClose");
-    window.setActionOnClose(G4P.CLOSE_WINDOW);
+    //set close window actions as defined in windowDraw
+    window.setActionOnClose(G4P.CLOSE_WINDOW);    
     
     //disable file opener as can only work on one image at a time
     btnOpenFile.setEnabled(false);
@@ -344,7 +355,7 @@ void fileSelected(File selection) {
     threshSlide.setValue(threshval);
     
     //asterisk note
-    asterisk = new GLabel(window,threshstart,guistart+70,300,30);
+    asterisk = new GLabel(window,threshstart,guistart+125,300,30);
     asterisk.setText("*must be set before counting");
     
     //graident map controls
@@ -375,10 +386,14 @@ void fileSelected(File selection) {
     watCheck.addEventHandler(this, "watCheck_clicked");
     watCheck.setSelected(true);
     watCheck.setEnabled(true);
-    countTitle = new GLabel(window,watstart, guistart+55,50,20);
-    countTitle.setText("Count:");
+    countTitle = new GLabel(window,watstart, guistart+45,50,20);
+    countTitle.setText("Total:");
     countTitle.setTextBold();
-    countVal = new GLabel(window,watstart+80, guistart+55,60, 20);
+    countVal = new GLabel(window,watstart+80, guistart+45,60, 20);
     countVal.setText(str(objCount));
+    addSection = new GButton(window, watstart, guistart+70, 100, 20, "Add Section");
+    clearSections = new GButton(window, watstart, guistart+95, 100, 20, "Clear Sections");
+    exportDat = new GButton(window, watstart, guistart+125, 100, 20, "Export");
+    exportDat.setTextBold();
   }
 }

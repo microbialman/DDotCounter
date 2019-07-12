@@ -88,14 +88,14 @@ public void drawCrop(){
   int pix1x=crop1x-((winwidth-workImg.width)/2);
   int pix1y=crop1y-((winheight-workImg.height)/2);
   int pix2x=crop2x-((winwidth-workImg.width)/2);
-  int pix2y=crop2y-((winwidth-workImg.width)/2);
+  int pix2y=crop2y-((winheight-workImg.height)/2);
   
   //rectangular crop
   if(cropShape==false){
    for(int j=0; j<workImg.pixels.length; j++){
     int px = j % workImg.width;
     int py = j / workImg.width;
-    if(px<pix1x||px>pix2x||py<pix1y||py>pix2y){
+    if(px<min(pix1x,pix2x)||px>max(pix1x,pix2x)||py<min(pix1y,pix2y)||py>max(pix1y,pix2y)){
       workImg.pixels[j]=color(0,0,0);
     }
    }
@@ -106,13 +106,24 @@ public void drawCrop(){
     for(int j=0; j<workImg.pixels.length; j++){
     int px = j % workImg.width;
     int py = j / workImg.width;
-    if(dist(pix1x,pix1y,px,py)>dist(pix1x,pix1y,pix2x,pix2y)){
+    if(abs(dist(pix1x,pix1y,px,py))>abs(dist(pix1x,pix1y,pix2x,pix2y))){
        workImg.pixels[j]=color(0,0,0);
     }
    }
   }
   
+}
 
-
-
+//function to turn cropping on/off
+public void cropToggle(){
+  if(cropactive==true){
+    cropactive=false;
+    btnSquareCrop.setEnabled(true);
+    btnCircleCrop.setEnabled(true);
+  }
+  else{
+    cropactive=true;
+    btnSquareCrop.setEnabled(false);
+    btnCircleCrop.setEnabled(false);
+  }
 }

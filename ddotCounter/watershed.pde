@@ -11,9 +11,17 @@ public void watershedRun(){
   secondPass(whitePixels);
   thirdPass(whitePixels);
   fourthPass(whitePixels);
+  //relabel pixels to their dots
   catchmentDefs=reLabel(point);
+  //get total dot count
   objCount=max(catchmentDefs);
   shedready=true;
+  //if sections have been defined, count their dots
+  if(sectionNames.size()>0){
+    for(int i=0; i<sectionNames.size();i++){
+      countSecs(i);
+    }
+  }
 }
 
 //function to generate the final labels numbered 1 to n dots
