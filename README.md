@@ -8,7 +8,7 @@ A program to count dots within images. Primarily designed for quick, simple, and
 
 Alongside total plate counts, DDot Counter can also be used to divide a plate into sections (e.g. for counting different experimental conditions on a single plate) and to process multiple images with consistent settings.
 
-All results can be exported as csvs containing the counts and jpeg images highlighting the detected dots.
+All results can be exported as CSVs containing the counts and JPEG images highlighting the detected dots.
 
 ## Installation
 
