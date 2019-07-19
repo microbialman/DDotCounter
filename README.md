@@ -49,4 +49,4 @@ If you have multiple images (such as multiple plates from an experiment) it migh
 
 DDot Counter was written using Processing and is based around the watershed algorithm described in Bieniek and Moga, Pattern Recognition, 2000.
 
-It was originally written to help Danny count his bacterial colonies, he is the face of DDot.
+It was originally written to help Danny ([@DannyJohnston2](https://twitter.com/DannyJohnston2)) count his bacterial colonies, he is the face of DDot.
