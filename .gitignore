@@ -2,3 +2,5 @@ __pycache__/
 *~
 .#*
 executables/zip_exe.sh
+.DS_store
+*/.DS_Store
