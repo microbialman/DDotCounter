@@ -32,7 +32,7 @@ If desired, images can be modified to improve clarity of the dots using any comb
 
 Dots are found by first converting the image to black and white pixels via a process termed thresholding. The thresholding parameter should be set to find a balance where dots are best differentiated from one another.
 
-The thresholded image is then converted into a distance map using a mapping resolution value. This allows splitting of dots (or bacteria) that may be overlapping. Again, adjusting the resolution can be used to find a balance between correctly splitting joined colonies and artificially splitting single dots.
+The thresholded image is then converted into a distance map using a mapping resolution value. This allows splitting of dots (or bacterial colonies) that may be overlapping. Again, adjusting the resolution can be used to find a balance between correctly splitting joined colonies and artificially splitting single dots.
 
 #### 3. Dot counting
 
