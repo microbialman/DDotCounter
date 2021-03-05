@@ -12,7 +12,7 @@ All results can be exported as CSVs containing the counts and JPEG images highli
 
 ## Installation
 
-To install, simply download the zip file for your operating system from the executables folder, extract, and run the executable (may also require Java installation). The cloned the source code can also be run using Processing.
+To install, simply download the zip file for your operating system from the executables folder, extract, and run the executable (may also require Java installation). The cloned source code can also be run using Processing.
 
 ## Using DDot
 
